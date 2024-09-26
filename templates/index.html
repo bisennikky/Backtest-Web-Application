@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Backtesting Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Backtest Web Application</h1>
+        <div class="form-container">
+            <form action="/submit" method="post">
+                <div class="form-group">
+                    <label for="derivative">Derivative:</label>
+                    <input type="text" class="form-control" name="derivative" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry_date">Expiry Date (YYYY-MM-DD):</label>
+                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid expiry date.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timeframes">Timeframes:</label><br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="timeframes" value="1 Minute" id="timeframe1">
+                        <label class="form-check-label" for="timeframe1">1 Minute</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="timeframes" value="5 Minutes" id="timeframe2">
+                        <label class="form-check-label" for="timeframe2">5 Minutes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="timeframes" value="1 Hour" id="timeframe3">
+                        <label class="form-check-label" for="timeframe3">1 Hour</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="timeframes" value="1 Day" id="timeframe4">
+                        <label class="form-check-label" for="timeframe4">1 Day</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="strategy">Strategy:</label>
+                    <select class="form-control" name="strategy" required>
+                        <option value="moving_average_crossover">Moving Average Crossover</option>
+                        <option value="stop_loss">Stop Loss</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+        });
+    </script>
+</body>
+</html>
