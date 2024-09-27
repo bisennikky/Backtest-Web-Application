@@ -1,127 +1,84 @@
+******* Python Trading Strategy Backtesting Application*********
+# Overview
+ This application allows users to perform backtests on trading strategies using historical data. It is built using Flask, with a simple web interface for submitting strategies and viewing results. The application supports:
+Moving Average Crossover Strategy
+Stop Loss Application
+Users can load financial data, apply strategies, and visualize the results through interactive plots.
 
-README for Backtest Web Application
-Project Title: Backtest Web Application
-This is a Flask-based web application designed to backtest trading strategies using financial data stored in Feather format. It supports two key trading strategies: Moving Average Crossover and Stop Loss, allowing users to evaluate their performance and store results in a SQLite database.
+# Features
+Python Script Development: The core logic of the application is written in Python, and includes data processing, strategy execution, and result plotting.
+Strategy Automation: Strategies such as moving average crossover and stop loss are implemented and automated within the application.
+Data Management: Data is loaded from Feather format files, processed, and results are stored in an SQLite database.
+Open Source Contribution: The project is designed for extendability, allowing developers to add more trading strategies and data management techniques.
 
-Features
-Feather File Data Import: Loads time series financial data stored in .feather format for analysis.
-Moving Average Crossover Strategy: A classic trading strategy that generates buy/sell signals based on short and long moving averages.
-Stop Loss Strategy: Applies a stop-loss percentage on close prices to simulate risk management.
-Backtesting: Simulates trading based on the provided strategies, calculating total profit and the number of trades made.
-Database Integration: Stores backtesting results (profit, number of trades, etc.) in a SQLite database.
-Plotting: Uses Plotly to generate interactive visualizations of the price data and signals.
-Web-based Input: Users can submit their trading strategy parameters via a web form.
-Dynamic Strategy Selection: Support for multiple timeframes and derivatives (stocks, commodities, etc.).
+# Project Structure
 
-Project Structure
-app.py: Main Flask application that handles routes and logic for backtesting strategies.
-templates/: Contains the HTML files (index.html, results.html) for rendering pages.
-static/: Directory for static files like CSS, JS.
-data/: Directory to store the .feather data file (data1.feather).
-sqlite.db: SQLite database to store backtest results.
-
-
-
-
-Usage
-Home Page:
-
-Select derivative (e.g., stock symbol).
-Choose expiry date.
-Select timeframes (multiple selections allowed).
-Choose your strategy (either moving_average_crossover or stop_loss).
-Submit Data:
-
-Upon submitting the form, the app processes the data, runs the backtest based on the selected strategy, and displays results.
-Results include total profit, the number of trades, and a Plotly graph showing the price and strategy signals.
+├── app.py               # Main Flask application
+├── templates
+│   ├── index.html       # Homepage with form for input
+│   └── results.html     # Page displaying backtest results
+├── static               # Static files (CSS, JS)
+├── data
+│   └── data.feather     # Feather file containing historical data
+├── sqlite.db            # SQLite database for storing backtest results
+└── README.md            # This file
 
 
 
+# Setup and Installation
+  Requirements:
+    Python 3.x
+    Flask
+    Pandas
+    Plotly
+    SQLite3
+    Feather (for handling .feather files)
 
 
-README for Backtest Web Application
-Project Title: Backtest Web Application
-This is a Flask-based web application designed to backtest trading strategies using financial data stored in Feather format. It supports two key trading strategies: Moving Average Crossover and Stop Loss, allowing users to evaluate their performance and store results in a SQLite database.
+# Database Setup
+  The database is initialized automatically when you run the application. The database stores the results of the backtest.
 
-Features
-Feather File Data Import: Loads time series financial data stored in .feather format for analysis.
-Moving Average Crossover Strategy: A classic trading strategy that generates buy/sell signals based on short and long moving averages.
-Stop Loss Strategy: Applies a stop-loss percentage on close prices to simulate risk management.
-Backtesting: Simulates trading based on the provided strategies, calculating total profit and the number of trades made.
-Database Integration: Stores backtesting results (profit, number of trades, etc.) in a SQLite database.
-Plotting: Uses Plotly to generate interactive visualizations of the price data and signals.
-Web-based Input: Users can submit their trading strategy parameters via a web form.
-Dynamic Strategy Selection: Support for multiple timeframes and derivatives (stocks, commodities, etc.).
-Installation
-Clone the repository:
+# Loading Data:
+  The application expects historical trading data in .feather format. The data file should contain at least the following columns:
+  Close: The closing price of the asset
+  date: The corresponding date for the price
+  Place the .feather file in the data/ folder with the name data.feather.
 
-bash
-Copy code
-git clone https://github.com/your-repo-url.git
-cd backtest-web-app
-Install Python dependencies:
+# Backtesting Strategies
+  The following strategies are available:
+  Moving Average Crossover: This strategy uses short-term and long-term moving averages to generate buy/sell signals.
+  Short-term: 5-day moving average
+  Long-term: 20-day moving average
+  Stop Loss: This strategy applies a stop-loss condition, where a position is sold if the price falls by a certain percentage (default: 2%).
 
-bash
-Copy code
-pip install -r requirements.txt
-Ensure pyarrow is installed for Feather file support:
-
-bash
-Copy code
-pip install pyarrow
-Run the Flask app:
-
-bash
-Copy code
-python app.py
-Access the app by opening your browser and going to:
-
-arduino
-Copy code
-http://localhost:5000
-Project Structure
-app.py: Main Flask application that handles routes and logic for backtesting strategies.
-templates/: Contains the HTML files (index.html, results.html) for rendering pages.
-static/: Directory for static files like CSS, JS.
-data/: Directory to store the .feather data file (data1.feather).
-sqlite.db: SQLite database to store backtest results.
-Usage
-Home Page:
-
-Select derivative (e.g., stock symbol).
-Choose expiry date.
-Select timeframes (multiple selections allowed).
-Choose your strategy (either moving_average_crossover or stop_loss).
-Submit Data:
-
-Upon submitting the form, the app processes the data, runs the backtest based on the selected strategy, and displays results.
-Results include total profit, the number of trades, and a Plotly graph showing the price and strategy signals.
-Database Schema
-The application uses an SQLite database (sqlite.db) with a table called backtest_results. Below is the schema:
-
-Column Name	Data Type	Description
-id	INTEGER	Primary Key (Auto Increment)
-derivative	TEXT	Stock or derivative symbol
-expiry_date	TEXT	Expiry date in DD/MM/YYYY format
-timeframes	TEXT	Selected timeframes (e.g., '5min', '1hr')
-strategy	TEXT	Strategy used (e.g., 'moving_average_crossover')
-total_profit	REAL	Total profit from the backtest
-trades	INTEGER	Total number of trades made
+# Using the Web Interface
+  Go to the homepage and fill out the form:
+  Select the derivative (financial asset)
+  Choose the expiry date in the format YYYY-MM-DD
+  Select one or more timeframes (e.g., 'Daily', 'Weekly')
+  Choose a strategy (Moving Average Crossover or Stop Loss)
+  Submit the form to run the backtest. The results page will display:
+  Total profit or loss from the backtest
+  Number of trades made
+  An interactive graph showing the price data and strategy signals
 
 
 
-Key Functions
-load_feather_file(file_path): Loads a .feather file and renames the close column to Close if needed.
+# Storing Results:
+  Backtest results are stored in an SQLite database (sqlite.db) with the following structure:
+  
+  id	derivative	expiry_date	timeframes	strategy	total_profit	trades
+  1	   XYZ	    01/08/2024	  Daily	moving_average_crossover	500.00	10
 
-moving_average_crossover(data, short_window=5, long_window=20): Implements the moving average crossover strategy, generating buy/sell signals.
 
-apply_stop_loss(data, stop_loss_percentage=0.02): Adds a stop-loss condition to the data for risk management.
 
-backtest(data): Runs a backtest on the provided data, calculating the total profit and number of trades.
 
-plot_results(data): Uses Plotly to generate an HTML chart of the results.
+# Error Handling
+  If data is missing or incorrectly formatted, appropriate error messages will be displayed.
+  If a strategy is unknown or unsupported, a "400 - Bad Request" error is returned.
+  Contribution
+  This project is designed to be extendable. You can add additional strategies or modify existing ones to suit more trading models.
 
-Error Handling
-Database Errors: During initialization, the app checks and adds missing columns to the backtest_results table if needed.
-Strategy Errors: If the selected strategy is not recognized or if required columns are missing from the data, the app will return appropriate error messages.
-Data Errors: Handles cases where the Feather file fails to load or contains missing columns.
+# Fork the repository.
+  Add your strategy or modification.
+  Submit a pull request with a detailed description.
